@@ -8,8 +8,8 @@ hostnames = ['192.168.1.1','1.1.1.1','213.191.128.8','213.191.128.9','8.8.8.8']
     #192.168.1.1-Lokalni ruter    
 
 while True:   
-    print 'sleeping 1 minutes'
-    time.sleep(60) 
+    print 'sleeping 0,1 minutes'
+    time.sleep(10) 
     print 'Starting Speedtest'	
     try:
         s = speedtest.Speedtest()
@@ -30,7 +30,7 @@ while True:
         print 'speedtest failed'
         with open("down.txt", "a") as myfile:
             myfile.write(str(datetime.now())+'    -->Speedtest-->pad veze \n')
-        print 'Sleep 1 minute'
+        print 'retesting'
         
         
     for hostname in hostnames:
@@ -41,14 +41,15 @@ while True:
             if hostname == '8.8.8.8':
 				with open("ok.txt", "a") as myfile:
 					myfile.write('\n\n')  
-				print 'sleeping 10 minutes'				
-				time.sleep(10*60)
+				print 'sleeping 4 minutes'				
+				time.sleep(4*60)
         else:
             print hostname, 'DOWN'
             with open("down.txt", "a") as myfile:
                 myfile.write(str(datetime.now())+'    -->Ping: '+hostname+'-->pad veze \n')
                 if hostname == '8.8.8.8':
                     myfile.write('\n\n')
+		time.sleep(30)
 		   
  
 			
