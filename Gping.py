@@ -44,7 +44,7 @@ while True:
         Ping(hostname)
     print 'Ping ok\n Sleeping 1 minute'
     counter+=1
-    if counter>10:
-        TestSpeed
+    if counter>60:
+        TestSpeed()
         counter=0
     time.sleep(60)
