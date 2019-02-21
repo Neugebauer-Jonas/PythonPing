@@ -4,13 +4,17 @@ from datetime import datetime
 import speedtest   
     
 hostnames = ['1.1.1.1','213.191.128.8','213.191.128.9','8.8.8.8']    
- #8.8.8.8-Google 
-    #192.168.1.1-Lokalni ruter    
+counter=0    
+    
+def Ping(hostname):
+    print('Starting Ping')
+    response = os.system('ping -n 4 ' + hostname)
+    if response != 0:
+        with open("down.txt", "a") as myfile:
+            myfile.write(str(datetime.now())+'    -->Ping: '+hostname+'-->pad veze \n')
+        TestSpeed()
 
-while True:   
-    print str(datetime.now())
-    time.sleep(10) 
-    print 'Starting Speedtest'	
+def TestSpeed():
     try:
         s = speedtest.Speedtest()
         s.get_servers()
@@ -30,27 +34,17 @@ while True:
         print 'speedtest failed'
         with open("down.txt", "a") as myfile:
             myfile.write(str(datetime.now())+'    -->Speedtest-->pad veze \n')
-        print 'retesting'
-        
-        
+            time.sleep(5)
+        TestSpeed()
+          
+
+while True:    
+    print 'Starting Speedtest'	       
     for hostname in hostnames:
-        response = os.system('ping -n 4 ' + hostname)
-        if response == 0:
-            with open("ok.txt", "a") as myfile:
-                myfile.write(str(datetime.now())+'    --> Ping: '+hostname+'-->up\n')
-            if hostname == '8.8.8.8':
-				with open("ok.txt", "a") as myfile:
-					myfile.write('\n\n')  
-				print str(datetime.now())				
-				time.sleep(4*60)
-        else:
-            print hostname, 'DOWN'
-            with open("down.txt", "a") as myfile:
-                myfile.write(str(datetime.now())+'    -->Ping: '+hostname+'-->pad veze \n')
-                if hostname == '8.8.8.8':
-                    myfile.write('\n\n')
-		time.sleep(30)
-		   
- 
-			
-	
+        Ping(hostname)
+    print 'Ping ok\n Sleeping 1 minute'
+    counter+=1
+    if counter>10:
+        TestSpeed
+        counter=0
+    time.sleep(60)
