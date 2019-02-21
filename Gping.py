@@ -3,12 +3,12 @@ import time
 from datetime import datetime 
 import speedtest   
     
-hostnames = ['192.168.1.1','1.1.1.1','213.191.128.8','213.191.128.9','8.8.8.8']    
+hostnames = ['1.1.1.1','213.191.128.8','213.191.128.9','8.8.8.8']    
  #8.8.8.8-Google 
     #192.168.1.1-Lokalni ruter    
 
 while True:   
-    print 'sleeping 0,1 minutes'
+    print str(datetime.now())
     time.sleep(10) 
     print 'Starting Speedtest'	
     try:
@@ -41,7 +41,7 @@ while True:
             if hostname == '8.8.8.8':
 				with open("ok.txt", "a") as myfile:
 					myfile.write('\n\n')  
-				print 'sleeping 4 minutes'				
+				print str(datetime.now())				
 				time.sleep(4*60)
         else:
             print hostname, 'DOWN'
